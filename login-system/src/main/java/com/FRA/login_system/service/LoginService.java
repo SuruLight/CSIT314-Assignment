@@ -12,7 +12,7 @@ public class LoginService {
 
     public boolean authenticate(String username, String password) {
         // Business logic: "Check credentials"
-        UserAdmin user = userRepository.findByUsernameAndPassword(username, password);
-        return user != null;
+        UserAdmin userAdmin = userRepository.findByUsernameAndPassword(username, password);
+        return userAdmin != null;
     }
 }
