@@ -14,6 +14,15 @@ public class LoginService {
     public boolean authenticate(String username, String password) {
         // Business logic: "Check credentials"
         User user = userRepository.findByUsernameAndPassword(username, password);
-        return user != null;
+
+        if (user == null) {
+            return false;
+        }
+
+        if (user.isSuspended()) {
+            return false;
+        }
+
+        return true;
     }
 }

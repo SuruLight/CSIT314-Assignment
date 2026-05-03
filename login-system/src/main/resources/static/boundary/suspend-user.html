@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Suspend User Account</title>
+</head>
+<body>
+
+<h2>Suspend User Account</h2>
+
+<input type="number" id="userId" placeholder="Enter User ID">
+
+<button onclick="requestSuspension()">Suspend</button>
+<button onclick="unsuspendUser()">Unsuspend</button>
+
+<p id="result"></p>
+
+<br>
+<button onclick="goBack()">Back</button>
+
+<script>
+function requestSuspension() {
+    const userID = document.getElementById("userId").value;
+
+    fetch("http://localhost:8080/api/admin/users/" + userID + "/suspend", {
+        method: "PUT"
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayConfirm(data, true);
+    });
+}
+
+function unsuspendUser() {
+    const userID = document.getElementById("userId").value;
+
+    fetch("http://localhost:8080/api/admin/users/" + userID + "/unsuspend", {
+        method: "PUT"
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayConfirm(data, false);
+    });
+}
+
+function displayConfirm(data, isSuspended) {
+    if (isSuspended) {
+        document.getElementById("result").innerText =
+            "User " + data.username + " has been suspended.";
+    } else {
+        document.getElementById("result").innerText =
+            "User " + data.username + " has been unsuspended.";
+    }
+}
+
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>

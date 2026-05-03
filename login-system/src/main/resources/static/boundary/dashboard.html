@@ -14,6 +14,7 @@
 <h3>Functions</h3>
 
 <button onclick="goToSearchUser()">Search User Accounts</button>
+<button onclick="goToSuspendUser()">Suspend User Account</button>
 <br><br>
 
 <button onclick="logout()">Logout</button>
@@ -32,6 +33,10 @@ document.getElementById("welcomeMsg").innerText =
 // Go to search user page
 function goToSearchUser() {
     window.location.href = "search-user.html";
+}
+// Go to suspend user page
+function goToSuspendUser() {
+    window.location.href = "suspend-user.html";
 }
 
 // Logout
