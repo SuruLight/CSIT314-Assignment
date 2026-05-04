@@ -15,6 +15,7 @@
 
 <button onclick="goToSearchUser()">Search User Accounts</button>
 <button onclick="goToSuspendUser()">Suspend User Account</button>
+<button onclick="goToUpdateUser()">Update User Account</button>
 <br><br>
 
 <button onclick="logout()">Logout</button>
@@ -44,6 +45,10 @@ function logout() {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("username");
     window.location.href = "login.html";
+}
+
+function goToUpdateUser() {
+    window.location.href = "update-user-account.html";
 }
 </script>
 

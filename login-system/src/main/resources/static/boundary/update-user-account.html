@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update User Account</title>
+</head>
+<body>
+
+<h2>Update User Account</h2>
+
+<input type="text" id="accountName" placeholder="Enter username"><br>
+
+<select id="roleType">
+    <option value="USER_ADMIN">USER_ADMIN</option>
+    <option value="FR">FR</option>
+    <option value="DONEE">DONEE</option>
+    <option value="PLATFORM_MANAGEMENT">PLATFORM_MANAGEMENT</option>
+</select>
+
+<p><b>Select Permissions:</b></p>
+<label><input type="checkbox" value="SEARCH_USER"> Search User</label><br>
+<label><input type="checkbox" value="SUSPEND_USER"> Suspend User</label><br>
+<label><input type="checkbox" value="UPDATE_USER"> Update User</label><br><br>
+
+<button onclick="submitUpdateUser()">Update User</button>
+
+<p id="result"></p>
+<button onclick="goBack()">Back</button>
+
+<script>
+function submitUpdateUser() {
+    const accountName = document.getElementById("accountName").value;
+    const roleType = document.getElementById("roleType").value;
+    const selectedPermissions = document.querySelectorAll('input[type="checkbox"]:checked');
+
+    let permissions = [];
+    selectedPermissions.forEach(p => {
+        permissions.push(p.value);
+    });
+
+    // convert to string for backend (since your DB is string)
+    permissions = permissions.join(",");
+
+    fetch("http://localhost:8080/api/admin/users/update", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            accountName: accountName,
+            roleType: roleType,
+            permissions: permissions
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayUserAccount(data);
+    });
+}
+
+function displayUserAccount(userAccount) {
+    if (userAccount == null) {
+        document.getElementById("result").innerText = "User account not found.";
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "Updated user: " + userAccount.username +
+        " | Role: " + userAccount.role +
+        " | Permissions: " + userAccount.permissions;
+}
+
+function goBack() {
+    window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>

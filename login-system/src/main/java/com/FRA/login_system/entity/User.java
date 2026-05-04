@@ -23,6 +23,7 @@ public class User {
     private String email;
     private String phone;
     private boolean suspended;
+    private String permissions;
 
     public User() {}
 
@@ -35,6 +36,7 @@ public class User {
     public String getEmail() {return email;}
     public String getPhone() {return phone;}
     public boolean isSuspended() {return suspended;}
+    public String getPermissions() {return permissions;}
 
     // ===== SETTERS =====
     public void setUsername(String username) {this.username = username;}
@@ -44,4 +46,5 @@ public class User {
     public void setEmail(String email) {this.email = email;}
     public void setPhone(String phone) {this.phone = phone;}
     public void setSuspended(boolean suspended) {this.suspended = suspended;}
+    public void setPermissions(String permissions) {this.permissions = permissions;}
 }
