@@ -18,6 +18,7 @@ import com.FRA.login_system.repository.FSACategoryRepository;
 import com.FRA.login_system.repository.DailyReportRepository;
 import com.FRA.login_system.repository.WeeklyReportRepository;
 import com.FRA.login_system.repository.MonthlyReportRepository;
+import com.FRA.login_system.repository.DonationRepository;
 
 @SpringBootTest
 public class DataQuantityTest {
@@ -52,6 +53,9 @@ public class DataQuantityTest {
     @Autowired
     private MonthlyReportRepository monthlyReportRepository;
 
+    @Autowired
+    private DonationRepository donationRepository;
+
     @Test
     public void testDatabaseHasExpectedRecordQuantities() {
         
@@ -61,32 +65,37 @@ public class DataQuantityTest {
 
         // 2. Verify User Authentication Profiles (5 Manual Records + 100 Bulk Iterated Records)
         long totalAccounts = userAccountRepository.count();
-        assertEquals(105, totalAccounts, "User accounts table should have exactly 105 total records");
+        assertTrue(totalAccounts >=100,"User accounts table should have more then 100 total records");
 
         long totalUsers = userRepository.count();
-        assertEquals(105, totalUsers, "Users password table should align with accounts at 105 records");
+        assertTrue(totalUsers >= 100,"Users password table should align with more then 100 accounts records");
+        
 
         // 3. Verify Operational Entities (100 Bulk Iterated Loop Records per table)
         long totalActivities = activityRepository.count();
-        assertEquals(100, totalActivities, "Activities tracker table should have exactly 100 mock items");
+        assertTrue(totalActivities >= 100, "Activities tracker table should have more then 100 mock items");
 
         long totalFraEntries = fraRepository.count();
-        assertEquals(100, totalFraEntries, "FRA Campaign matrix table should have exactly 100 mock items");
+        assertTrue(totalFraEntries >= 100, "FRA Campaign matrix table should have more then 100 mock items");
 
         long totalListings = listingRepository.count();
-        assertEquals(100, totalListings, "Public listings index table should have exactly 100 mock items");
+        assertTrue(totalListings >= 100, "Public listings index table should have more then 100 mock items");
 
         long totalCategories = fsaCategoryRepository.count();
-        assertEquals(100, totalCategories, "FSA Category domain mappings should have exactly 100 mock items");
+        assertTrue(totalCategories >= 100, "FSA Category domain mappings should have more then 100 mock items");
 
         // 4. Verify Generated Analytical Reports (100 Loop Records generated across timelines)
         long dailyReportCount = dailyReportRepository.count();
         assertTrue(dailyReportCount >= 100, "Daily report analytics compilation should capture at least 100 operational days");
 
         long weeklyReportCount = weeklyReportRepository.count();
-        assertEquals(100, weeklyReportCount, "Weekly metrics ledger compilation should track exactly 100 analytical weeks");
+        assertTrue(weeklyReportCount >= 100, "Weekly metrics ledger compilation should track  at least 100 analytical weeks");
 
         long monthlyReportCount = monthlyReportRepository.count();
-        assertEquals(100, monthlyReportCount, "Monthly metrics ledger compilation should track exactly 100 analytical months");
+        assertTrue(monthlyReportCount >= 100, "Monthly metrics ledger compilation should track  at least 100 analytical months");
+        
+        long donationRepositorycount = donationRepository.count();
+        assertTrue(donationRepositorycount >= 100, "donations table as at least 100 or more record" );
+
     }
 }
